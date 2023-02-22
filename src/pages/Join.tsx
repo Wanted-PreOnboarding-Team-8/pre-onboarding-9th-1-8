@@ -1,11 +1,26 @@
+import { signup } from '@/api/auth';
 import useInput from '@/lib/hooks/useInput';
 import { validate } from '@/lib/utils/validate';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Join = () => {
   const email = useInput('');
   const password = useInput('');
+  const [errorMessage, setErrorMessage] = React.useState<string>('');
+
+  const navigate = useNavigate();
+
+  const join = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    signup(email.value, password.value)
+      .then(() => {
+        navigate('/signin');
+      })
+      .catch((error) => {
+        setErrorMessage(error.response.data.message);
+      });
+  };
 
   return (
     <div>
@@ -25,9 +40,11 @@ const Join = () => {
           placeholder="비밀번호를 입력하세요"
           {...password}
         />
+        <span>{errorMessage}</span>
         <button
           data-testid="signup-button"
           disabled={validate({ email: email.value, password: password.value })}
+          onClick={join}
         >
           회원가입
         </button>
