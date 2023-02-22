@@ -1,11 +1,27 @@
+import { signin } from '@/api/auth';
 import useInput from '@/lib/hooks/useInput';
 import { validate } from '@/lib/utils/validate';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const email = useInput('');
   const password = useInput('');
+  const [errorMessage, setErrorMessage] = React.useState<string>('');
+
+  const navigate = useNavigate();
+
+  const login = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    signin(email.value, password.value)
+      .then((res) => {
+        localStorage.setItem('login-token', res.token);
+        navigate('/todo');
+      })
+      .catch((error) => {
+        setErrorMessage(error.response.data.message);
+      });
+  };
 
   return (
     <div>
@@ -25,9 +41,11 @@ const Login = () => {
           placeholder="비밀번호를 입력하세요"
           {...password}
         />
+        <span>{errorMessage}</span>
         <button
           data-testid="signin-button"
           disabled={validate({ email: email.value, password: password.value })}
+          onClick={login}
         >
           로그인
         </button>
