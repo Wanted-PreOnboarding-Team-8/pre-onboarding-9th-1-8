@@ -1,19 +1,23 @@
 import { signup } from '@/api/auth';
-import useInput from '@/lib/hooks/useInput';
-import { validate } from '@/lib/utils/validate';
+import SignForm from '@/components/SignForm';
+import { LOGIN_TOKEN } from '@/constants';
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Join = () => {
-  const email = useInput('');
-  const password = useInput('');
   const [errorMessage, setErrorMessage] = React.useState<string>('');
 
   const navigate = useNavigate();
 
-  const join = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    signup(email.value, password.value)
+  React.useEffect(() => {
+    const loginToken = localStorage.getItem(LOGIN_TOKEN);
+    if (loginToken) {
+      navigate('/todo');
+    }
+  }, [navigate]);
+
+  const join = (email: string, password: string) => {
+    signup(email, password)
       .then(() => {
         navigate('/signin');
       })
@@ -24,34 +28,13 @@ const Join = () => {
 
   return (
     <div>
-      <form>
-        <h2>회원가입</h2>
-        <label>이메일</label>
-        <input
-          type="text"
-          data-testid="email-input"
-          placeholder="이메일을 입력하세요"
-          {...email}
-        />
-        <label>패스워드</label>
-        <input
-          type="password"
-          data-testid="password-input"
-          placeholder="비밀번호를 입력하세요"
-          {...password}
-        />
-        <span>{errorMessage}</span>
-        <button
-          data-testid="signup-button"
-          disabled={validate({ email: email.value, password: password.value })}
-          onClick={join}
-        >
-          회원가입
-        </button>
-        <span>
-          로그인하러가기 <Link to="/signin">로그인</Link>
-        </span>
-      </form>
+      <h2>회원가입</h2>
+      <SignForm
+        type="join"
+        buttonId="signup-button"
+        errorMessage={errorMessage}
+        onClickButton={join}
+      />
     </div>
   );
 };

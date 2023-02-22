@@ -1,4 +1,4 @@
-import { URL } from '@/constants/url';
+import { URL } from '@/constants';
 import axios from 'axios';
 
 export const request = axios.create({
