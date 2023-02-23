@@ -25,6 +25,7 @@ const TodoPage = () => {
         })
         .catch((err) => {
           alert(err.response.data.log || err.log);
+          setIsProcessing(false);
         })
         .finally(() => setNewTodo(''));
     }
