@@ -11,7 +11,13 @@ export interface ITodoForm {
   submitFn: (todo: createTodoType) => void;
 }
 
-export type TodoItemProps = {
+export interface ITodoItem {
   todo: ITodo;
   getTodos: () => void;
-};
+}
+
+export interface ITodoButton {
+  title: string;
+  dataTestId: `${string}-button`;
+  onClick: () => void;
+}
