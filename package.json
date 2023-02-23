@@ -21,7 +21,9 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "prelint": "prettier --write --cache .",
+    "lint": "eslint --cache --fix ."
   },
   "eslintConfig": {
     "extends": [
