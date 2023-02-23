@@ -7,18 +7,21 @@ import React from 'react';
 const TodoPage = () => {
   const [todos, setTodos] = React.useState<Todo[]>([]);
 
-  React.useEffect(() => {
+  const getTodoList = () =>
     getTodos()
       .then((res) => {
         setTodos(res.data as Todo[]);
       })
       .catch(() => alert('불러오기 실패'));
+
+  React.useEffect(() => {
+    getTodoList();
   }, []);
 
   return (
     <div>
       <h2>TODO LIST</h2>
-      <TodoAddForm />
+      <TodoAddForm onAddTodo={getTodoList} />
       {todos.length > 0 ? (
         <ul>
           {todos.map((todo, i) => (
