@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/HOC/ProtectedRoute';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -11,7 +12,14 @@ const Router = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/todo" element={<Todos />} />
+        <Route
+          path="/todo"
+          element={
+            <ProtectedRoute>
+              <Todos />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
