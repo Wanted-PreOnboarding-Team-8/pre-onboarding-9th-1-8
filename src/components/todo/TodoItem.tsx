@@ -31,6 +31,13 @@ const TodoItem = ({
     setIsModify(false);
   };
 
+  // 삭제 및 데이터 갱신
+  const handleDelete = async () => {
+    if (!confirm('정말 삭제하시겠습니까?')) return;
+    await deleteTodo(todo.id);
+    await getTodos();
+  };
+
   // checkBox 클릭 시 isCompleted 상태만 업데이트
   const changeCompleteState = () => {
     updateTodo(todo.id, { todo: todo.todo, isCompleted: !isCompleted });
@@ -69,7 +76,9 @@ const TodoItem = ({
           <button data-testid="modify-button" onClick={toggleModify}>
             수정
           </button>
-          <button data-testid="delete-button">삭제</button>
+          <button data-testid="delete-button" onClick={handleDelete}>
+            삭제
+          </button>
         </>
       )}
     </li>
