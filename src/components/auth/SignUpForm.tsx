@@ -1,10 +1,15 @@
 import useInput from '@/lib/hooks/common/useInput';
 import { validator } from '@/lib/utils/validator';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 const SignUpForm = () => {
   const [email, isValidEmail] = useInput('', validator.email);
   const [password, isValidPw] = useInput('', validator.password);
+  const isDisabled = useMemo(
+    () => ![isValidEmail.value, isValidPw.value].every((valid) => valid),
+    [isValidEmail.value, isValidPw.value],
+  );
 
   return (
     <form>
@@ -19,7 +24,9 @@ const SignUpForm = () => {
         {...password}
       />
       <p>{isValidPw.message}</p>
-      <button data-testid="signup-button">회원가입</button>
+      <button data-testid="signup-button" disabled={isDisabled}>
+        회원가입
+      </button>
       <Link to="/signin">로그인하러가기</Link>
     </form>
   );
