@@ -1,5 +1,5 @@
-import { createTodo, getTodo } from '@/api/todo';
-import { createTodoType } from '@/api/todo/types';
+import { createTodo, getTodo, updateTodo } from '@/api/todo';
+import { createTodoType, updateTodoType } from '@/api/todo/types';
 import TodoForm from '@/components/todo/TodoForm';
 import TodoItem from '@/components/todo/TodoItem';
 import { ITodo } from '@/pages/TodoPage/types';
@@ -20,6 +20,12 @@ const TodoPage = () => {
       .catch((err) => alert(err.response.data.log || err.log));
   };
 
+  const onUpdate = (todo: updateTodoType) => {
+    updateTodo(todo)
+      .then(() => getTodos())
+      .catch((err) => alert(err.response.data.log || err.log));
+  };
+
   useEffect(() => {
     getTodos();
   }, []);
@@ -28,7 +34,7 @@ const TodoPage = () => {
       <TodoForm submitFn={onSubmit} />
       <ul>
         {todos.map((todo) => {
-          return <TodoItem key={todo.id} todo={todo} />;
+          return <TodoItem key={todo.id} todo={todo} updateFn={onUpdate} />;
         })}
       </ul>
     </div>

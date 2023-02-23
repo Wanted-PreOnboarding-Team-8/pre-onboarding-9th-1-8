@@ -1,17 +1,29 @@
-import { ITodo } from '@/pages/TodoPage/types';
+import { ITodo, ITodoItem } from '@/pages/TodoPage/types';
 import React, { useState } from 'react';
 
-const TodoItem = ({ todo }: { todo: ITodo }) => {
-  const [isComplete, setIsComplete] = useState(todo.isCompleted);
+type TodoItemPropsType = {
+  todo: ITodo;
+  updateFn: ITodoItem['updateFn'];
+};
+
+const TodoItem = ({ todo, updateFn }: TodoItemPropsType) => {
+  const [isCompleted, setIsCompleted] = useState(todo.isCompleted);
+
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const tempState = isCompleted;
+    e.preventDefault();
+    setIsCompleted(!tempState);
+    updateFn({
+      id: todo.id,
+      todo: todo.todo,
+      isCompleted: !tempState,
+    });
+  };
 
   return (
     <li>
       <label>
-        <input
-          type="checkbox"
-          checked={isComplete}
-          onChange={() => setIsComplete((curr) => !curr)}
-        />
+        <input type="checkbox" checked={isCompleted} onChange={onChange} />
         <span>{todo.todo}</span>
       </label>
     </li>
