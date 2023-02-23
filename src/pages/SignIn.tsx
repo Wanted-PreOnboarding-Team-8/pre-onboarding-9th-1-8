@@ -1,4 +1,10 @@
+import SignInForm from '@/components/auth/SignInForm';
+
 const SignIn = () => {
-  return <main>SignIn</main>;
+  return (
+    <main>
+      <SignInForm />
+    </main>
+  );
 };
 export default SignIn;

@@ -1,4 +1,10 @@
+import SignUpForm from '@/components/auth/SignUpForm';
+
 const SignUp = () => {
-  return <main>SignUp</main>;
+  return (
+    <main>
+      <SignUpForm />
+    </main>
+  );
 };
 export default SignUp;
