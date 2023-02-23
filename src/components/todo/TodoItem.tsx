@@ -1,18 +1,28 @@
 import React from 'react';
-import { updateTodo } from '@/api/todo';
+import { deleteTodo, updateTodo } from '@/api/todo';
 import { ITodo, ITodoItem, TodoButtonMode } from '@/pages/TodoPage/types';
 import TodoButton from './TodoButton';
 
 const TodoItem = ({ todo, getTodos }: ITodoItem) => {
-  const [inputText, setInputText] = React.useState<string>('');
+  const [inputText, setInputText] = React.useState<string>(todo.todo);
 
   const [isModify, setIsModify] = React.useState<boolean>(false);
 
-  const update = (item: ITodo, exitModifyMode?: boolean) => {
+  const updateTodoItem = (item: ITodo, exitModifyMode?: boolean) => {
     updateTodo(item)
       .then(() => {
         getTodos();
         if (exitModifyMode) setIsModify(false);
+      })
+      .catch((err) => {
+        alert(err.response.data.log || err.log);
+      });
+  };
+
+  const deleteTodoItem = (id: number) => {
+    deleteTodo(id)
+      .then(() => {
+        getTodos();
       })
       .catch((err) => {
         alert(err.response.data.log || err.log);
@@ -29,14 +39,14 @@ const TodoItem = ({ todo, getTodos }: ITodoItem) => {
       {
         title: '삭제',
         dataTestId: 'delete-button',
-        onClick: () => alert('삭제'),
+        onClick: () => deleteTodoItem(todo.id),
       },
     ],
     modify: [
       {
         title: '제출',
         dataTestId: 'submit-button',
-        onClick: () => update({ ...todo, todo: inputText }, true),
+        onClick: () => updateTodoItem({ ...todo, todo: inputText }, true),
       },
       {
         title: '취소',
@@ -59,7 +69,9 @@ const TodoItem = ({ todo, getTodos }: ITodoItem) => {
         <input
           type="checkbox"
           checked={todo.isCompleted}
-          onChange={() => update({ ...todo, isCompleted: !todo.isCompleted })}
+          onChange={() =>
+            updateTodoItem({ ...todo, isCompleted: !todo.isCompleted })
+          }
         />
         {!isModify ? (
           <span>{todo.todo}</span>

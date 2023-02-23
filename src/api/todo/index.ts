@@ -26,3 +26,10 @@ export const updateTodo = async (todo: ITodo) => {
     data: { todo: todo.todo, isCompleted: todo.isCompleted },
   });
 };
+
+export const deleteTodo = async (id: number) => {
+  return await apiClient({
+    method: 'delete',
+    url: `/todos/${id}`,
+  });
+};
