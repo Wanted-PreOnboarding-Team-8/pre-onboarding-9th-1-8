@@ -18,5 +18,5 @@ export default function useInput(
     setValue(value);
   };
 
-  return [{ value, onChange, setValue }, result.current];
+  return [{ value, onChange }, result.current];
 }

@@ -7,7 +7,6 @@ export type UseInputReturn = [
   {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    setValue: React.Dispatch<React.SetStateAction<string>>;
   },
   ValidatorReturn,
 ];
