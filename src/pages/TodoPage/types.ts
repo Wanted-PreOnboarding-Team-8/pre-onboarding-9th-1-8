@@ -21,3 +21,8 @@ export interface ITodoButton {
   dataTestId: `${string}-button`;
   onClick: () => void;
 }
+
+export interface TodoButtonMode {
+  default: ITodoButton[];
+  modify: ITodoButton[];
+}
