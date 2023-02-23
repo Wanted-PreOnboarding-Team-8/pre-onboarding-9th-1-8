@@ -2,12 +2,10 @@ import React from 'react';
 import { updateTodo } from '@/api/todo';
 import { ITodo, ITodoItem, TodoButtonMode } from '@/pages/TodoPage/types';
 import TodoButton from './TodoButton';
-import useInputs from '@/lib/hooks/useInputs';
 
 const TodoItem = ({ todo, getTodos }: ITodoItem) => {
-  const [modifyData, onChangeModifyData] = useInputs({
-    todo: todo.todo,
-  });
+  const [inputText, setInputText] = React.useState<string>('');
+
   const [isModify, setIsModify] = React.useState<boolean>(false);
 
   const update = (item: ITodo, exitModifyMode?: boolean) => {
@@ -38,14 +36,21 @@ const TodoItem = ({ todo, getTodos }: ITodoItem) => {
       {
         title: '제출',
         dataTestId: 'submit-button',
-        onClick: () => update({ ...todo, todo: modifyData.todo }, true),
+        onClick: () => update({ ...todo, todo: inputText }, true),
       },
       {
         title: '취소',
         dataTestId: 'cancel-button',
-        onClick: () => setIsModify(false),
+        onClick: () => {
+          setInputText(todo.todo);
+          setIsModify(false);
+        },
       },
     ],
+  };
+
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.currentTarget.value);
   };
 
   return (
@@ -62,8 +67,8 @@ const TodoItem = ({ todo, getTodos }: ITodoItem) => {
           <input
             type="text"
             name="todo"
-            value={modifyData.todo}
-            onChange={onChangeModifyData}
+            value={inputText}
+            onChange={onChangeInput}
             data-testid="modify-input"
           />
         )}
