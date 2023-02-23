@@ -3,11 +3,12 @@ import useInputs from '@/lib/hooks/useInputs';
 import { FormEvent } from 'react';
 
 const TodoForm = ({ submitFn }: ITodoForm) => {
-  const [todoData, onChangeTodoData] = useInputs({ todo: '' });
+  const [todoData, onChangeTodoData, setTodoData] = useInputs({ todo: '' });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     submitFn(todoData.todo);
+    setTodoData({ todo: '' });
   };
   return (
     <form onSubmit={handleSubmit}>
