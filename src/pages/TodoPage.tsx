@@ -1,4 +1,5 @@
 import { getTodos } from '@/api/todo';
+import TodoAddForm from '@/components/TodoAddForm';
 import TodoItem from '@/components/TodoItem';
 import { Todo } from '@/interface/todo';
 import React from 'react';
@@ -17,7 +18,7 @@ const TodoPage = () => {
   return (
     <div>
       <h2>TODO LIST</h2>
-
+      <TodoAddForm />
       {todos.length > 0 ? (
         <ul>
           {todos.map((todo, i) => (
