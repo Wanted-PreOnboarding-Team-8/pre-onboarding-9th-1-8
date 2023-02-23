@@ -1,5 +1,5 @@
-import { creteTodoParam } from '@/interface/todo';
 import apiClient from '../apiClient';
+import { creteTodoParam } from './param';
 
 export const getTodos = async () => {
   return await apiClient({
