@@ -1,4 +1,5 @@
 import { getTodos } from '@/api/todo';
+import TodoItem from '@/components/TodoItem';
 import { Todo } from '@/interface/todo';
 import React from 'react';
 
@@ -20,7 +21,7 @@ const TodoPage = () => {
       {todos.length > 0 ? (
         <ul>
           {todos.map((todo, i) => (
-            <li key={i}>{todo.todo}</li>
+            <TodoItem key={i} todo={todo} />
           ))}
         </ul>
       ) : (
