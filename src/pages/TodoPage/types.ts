@@ -1,4 +1,8 @@
-import { createTodoType, updateTodoType } from '@/api/todo/types';
+import {
+  createTodoType,
+  updateTodoType,
+  deleteTodoType,
+} from '@/api/todo/types';
 
 export interface ITodo {
   id: number;
@@ -13,4 +17,5 @@ export interface ITodoForm {
 
 export interface ITodoItem {
   updateFn: (todo: updateTodoType) => void;
+  deleteFn: (todo: deleteTodoType) => void;
 }

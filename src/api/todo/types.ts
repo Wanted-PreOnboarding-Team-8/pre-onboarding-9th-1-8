@@ -7,3 +7,7 @@ export interface updateTodoType {
   todo: string;
   isCompleted: boolean;
 }
+
+export interface deleteTodoType {
+  id: number;
+}

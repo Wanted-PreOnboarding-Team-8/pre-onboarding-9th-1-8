@@ -1,5 +1,9 @@
 import apiClient from '@/api/apiClient';
-import { createTodoType, updateTodoType } from '@/api/todo/types';
+import {
+  createTodoType,
+  updateTodoType,
+  deleteTodoType,
+} from '@/api/todo/types';
 
 export const getTodo = async () => {
   return await apiClient({
@@ -26,5 +30,12 @@ export const updateTodo = async (todo: updateTodoType) => {
       todo: todo.todo,
       isCompleted: todo.isCompleted,
     },
+  });
+};
+
+export const deleteTodo = async (todo: deleteTodoType) => {
+  return await apiClient({
+    method: 'delete',
+    url: `/todos/${todo.id}`,
   });
 };

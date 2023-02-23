@@ -1,5 +1,9 @@
-import { createTodo, getTodo, updateTodo } from '@/api/todo';
-import { createTodoType, updateTodoType } from '@/api/todo/types';
+import { createTodo, getTodo, updateTodo, deleteTodo } from '@/api/todo';
+import {
+  createTodoType,
+  updateTodoType,
+  deleteTodoType,
+} from '@/api/todo/types';
 import TodoForm from '@/components/todo/TodoForm';
 import TodoItem from '@/components/todo/TodoItem';
 import { ITodo } from '@/pages/TodoPage/types';
@@ -26,15 +30,28 @@ const TodoPage = () => {
       .catch((err) => alert(err.response.data.log || err.log));
   };
 
+  const onDelete = (todo: deleteTodoType) => {
+    deleteTodo(todo)
+      .then(() => getTodos())
+      .catch((err) => alert(err.response.data.log || err.log));
+  };
+
   useEffect(() => {
     getTodos();
-  }, []);
+  }, []); //  useCallback으로 만든 함수는 무시 가능
   return (
     <div>
       <TodoForm submitFn={onSubmit} />
       <ul>
         {todos.map((todo) => {
-          return <TodoItem key={todo.id} todo={todo} updateFn={onUpdate} />;
+          return (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              updateFn={onUpdate}
+              deleteFn={onDelete}
+            />
+          );
         })}
       </ul>
     </div>
