@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { isValidEmail, isValidPassword } from '../utils/validation';
+//import { postSignType } from '@/api/auth/types';
 
 interface ISignForm {
   email: string;

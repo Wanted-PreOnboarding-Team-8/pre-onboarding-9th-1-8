@@ -1,13 +1,7 @@
-export interface createTodoType {
-  todo: string;
-}
+import { ITodo } from '@/interface';
 
-export interface updateTodoType {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-}
-
-export interface deleteTodoType {
-  id: number;
-}
+export type todoParamTypes = {
+  create: Pick<ITodo, 'todo'>;
+  update: Pick<ITodo, 'id' | 'todo' | 'isCompleted'>;
+  delete: Pick<ITodo, 'id'>;
+};

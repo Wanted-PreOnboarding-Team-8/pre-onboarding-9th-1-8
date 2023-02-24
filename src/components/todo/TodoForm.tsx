@@ -1,13 +1,17 @@
-import { ITodoForm } from '@/pages/TodoPage/types';
+import { todoAPIFnTypes } from '@/pages/TodoPage/types';
 import useInputs from '@/lib/hooks/useInputs';
 import { FormEvent } from 'react';
 
-const TodoForm = ({ submitFn }: ITodoForm) => {
+//  type TodoFormPropsType = {
+//    createFn: todoAPIFnTypes['createFn'];
+//  }
+//
+const TodoForm = ({ createFn }: { createFn: todoAPIFnTypes['createFn'] }) => {
   const [todoData, onChangeTodoData] = useInputs({ todo: '' });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submitFn(todoData.todo);
+    createFn(todoData.todo);
   };
   return (
     <form onSubmit={handleSubmit}>

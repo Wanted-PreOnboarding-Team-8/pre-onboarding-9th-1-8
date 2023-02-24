@@ -1,9 +1,5 @@
 import apiClient from '@/api/apiClient';
-import {
-  createTodoType,
-  updateTodoType,
-  deleteTodoType,
-} from '@/api/todo/types';
+import { todoParamTypes } from '@/api/todo/types';
 
 export const getTodo = async () => {
   return await apiClient({
@@ -12,7 +8,7 @@ export const getTodo = async () => {
   });
 };
 
-export const createTodo = async (todo: createTodoType) => {
+export const createTodo = async (todo: todoParamTypes['create']) => {
   return await apiClient({
     method: 'post',
     url: '/todos',
@@ -22,7 +18,7 @@ export const createTodo = async (todo: createTodoType) => {
   });
 };
 
-export const updateTodo = async (todo: updateTodoType) => {
+export const updateTodo = async (todo: todoParamTypes['update']) => {
   return await apiClient({
     method: 'put',
     url: `/todos/${todo.id}`,
@@ -33,7 +29,7 @@ export const updateTodo = async (todo: updateTodoType) => {
   });
 };
 
-export const deleteTodo = async (todo: deleteTodoType) => {
+export const deleteTodo = async (todo: todoParamTypes['delete']) => {
   return await apiClient({
     method: 'delete',
     url: `/todos/${todo.id}`,

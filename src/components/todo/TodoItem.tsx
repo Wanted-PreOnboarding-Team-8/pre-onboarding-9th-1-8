@@ -1,14 +1,15 @@
-import { ITodo, ITodoItem } from '@/pages/TodoPage/types';
+import { ITodo } from '@/interface';
+import { todoAPIFnTypes } from '@/pages/TodoPage/types';
 import { useState } from 'react';
 import useInputs from '@/lib/hooks/useInputs';
 
-type TodoItemPropsType = {
+type todoItemPropsType = {
   todo: ITodo;
-  updateFn: ITodoItem['updateFn'];
-  deleteFn: ITodoItem['deleteFn'];
+  updateFn: todoAPIFnTypes['updateFn'];
+  deleteFn: todoAPIFnTypes['deleteFn'];
 };
 
-const TodoItem = ({ todo, updateFn, deleteFn }: TodoItemPropsType) => {
+const TodoItem = ({ todo, updateFn, deleteFn }: todoItemPropsType) => {
   const [mode, setMode] = useState<'normal' | 'updating'>('normal');
   const [isCompleted, setIsCompleted] = useState(todo.isCompleted);
   const [updatingTodo, onChangeUpdatingTodo] = useInputs({ todo: todo.todo });

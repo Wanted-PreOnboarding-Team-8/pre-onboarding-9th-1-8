@@ -1,21 +1,16 @@
-import {
-  createTodoType,
-  updateTodoType,
-  deleteTodoType,
-} from '@/api/todo/types';
+import { todoParamTypes } from '@/api/todo/types';
 
-export interface ITodo {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
-}
+//export interface ITodoForm {
+//  createFn: (todo: todoParamTypes['create']) => void;
+//}
+//
+//export interface ITodoItem {
+//  updateFn: (todo: todoParamTypes['update']) => void;
+//  deleteFn: (todo: todoParamTypes['delete']) => void;
+//}
 
-export interface ITodoForm {
-  submitFn: (todo: createTodoType) => void;
-}
-
-export interface ITodoItem {
-  updateFn: (todo: updateTodoType) => void;
-  deleteFn: (todo: deleteTodoType) => void;
-}
+export type todoAPIFnTypes = {
+  createFn: (todo: todoParamTypes['create']) => void;
+  updateFn: (todo: todoParamTypes['update']) => void;
+  deleteFn: (todo: todoParamTypes['delete']) => void;
+};
