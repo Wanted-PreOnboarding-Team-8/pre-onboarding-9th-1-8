@@ -4,10 +4,10 @@ import axios, {
   AxiosError,
 } from 'axios';
 
-import { ACCESS_TOKEN_KEY } from '@/constants/token.contant';
+import { ACCESS_TOKEN_KEY } from '@/constants/token.constant';
 import token from '@/lib/token';
 
-const host = 'https://pre-onboarding-selection-task.shop';
+const host = 'https://www.pre-onboarding-selection-task.shop';
 
 const apiClient = axios.create({
   baseURL: host,
