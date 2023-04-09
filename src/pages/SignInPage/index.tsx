@@ -3,7 +3,7 @@ import useInputs from '@/lib/hooks/useInputs';
 import useValidation from '@/lib/hooks/useValidation';
 import { useNavigate } from 'react-router-dom';
 import token from '@/lib/token';
-import { ACCESS_TOKEN_KEY } from '@/constants/token.contant';
+import { ACCESS_TOKEN_KEY } from '@/constants/token.constant';
 import { useContext, useState } from 'react';
 import { UserContext } from '@/contexts/UserContextProvider';
 
